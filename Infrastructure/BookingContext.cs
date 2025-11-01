@@ -16,6 +16,7 @@ namespace Booking_System.Infrastructure
         public DbSet<Floor> Floors { get; set; }
         public DbSet<Seat> Seats { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
             base.ConfigureConventions(configurationBuilder);

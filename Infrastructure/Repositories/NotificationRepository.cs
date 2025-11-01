@@ -1,5 +1,6 @@
 ﻿using Booking_System.Core.Application.Interfaces.Repositories;
 using Booking_System.Core.Domain.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Booking_System.Infrastructure.Repositories
@@ -7,40 +8,53 @@ namespace Booking_System.Infrastructure.Repositories
     public class NotificationRepository : INotifcationRepository
     {
         private readonly BookingContext _context;
-        public NotificationRepository(BookingContext)
-        public Task<Notification> AddAsync(Notification notification)
+        public NotificationRepository(BookingContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task<Notification> AddAsync(Notification notification)
+        {
+            await _context.Set<Notification>().AddAsync(notification);
+            return notification;
         }
 
-        public Task<Notification> GetAsync(Expression<Func<Notification, bool>> predicate)
+        public async Task<Notification> GetAsync(Expression<Func<Notification, bool>> predicate)
         {
-            throw new NotImplementedException();
+            var notification = await _context.Set<Notification>().Where(a => !a.IsDeleted)
+                .SingleOrDefaultAsync(predicate);
+            return notification;
         }
 
-        public Task<Notification> GetAsyncByBookingId(int bookingId)
+        public async Task<Notification> GetAsyncByBookingId(int bookingId)
         {
-            throw new NotImplementedException();
+            var notification = await _context.Notifications
+                .SingleOrDefaultAsync(a => a.BookingId == bookingId);
+            return notification;
         }
 
-        public Task<Notification> GetAsyncById(int id)
+        public async Task<Notification> GetAsyncById(int id)
         {
-            throw new NotImplementedException();
+            var notification = await _context.Notifications.SingleOrDefaultAsync(a => a.Id == id);
+            return notification;
         }
 
-        public Task<Notification> GetAsyncByUserId(int userId)
+        public async Task<Notification> GetAsyncByUserId(int userId)
         {
-            throw new NotImplementedException();
+            var notification = await _context.Notifications
+                .SingleOrDefaultAsync(a => a.UserId == userId);
+            return notification;
         }
 
         public void RemoveNotification(Notification notification)
         {
-            throw new NotImplementedException();
+            notification.IsDeleted = true;
+            _context.Notifications.Update(notification);
         }
 
         public Notification Update(Notification notification)
         {
-            throw new NotImplementedException();
+            _context.Notifications.Update(notification);
+            return notification;
         }
     }
 }
