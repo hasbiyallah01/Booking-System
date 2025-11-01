@@ -26,24 +26,29 @@ namespace Booking_System.Infrastructure.Repositories
             return analytics;
         }
 
-        public Task<UsageAnalytics> GetAsyncById(int id)
+        public async Task<UsageAnalytics> GetAsyncById(int id)
         {
-            throw new NotImplementedException();
+            var analytics = await _context.Set<UsageAnalytics>()
+                .SingleOrDefaultAsync(a => a.Id == id);
+            return analytics;
         }
 
-        public Task<UsageAnalytics> GetAsyncByZoneId(int soneId)
+        public async Task<UsageAnalytics> GetAsyncByZoneId(int zoneId)
         {
-            throw new NotImplementedException();
+            var analytics = await _context.UsageAnalytics.SingleOrDefaultAsync(a => a.ZoneId == zoneId && !a.IsDeleted);
+            return analytics;
         }
 
         public void Remove(UsageAnalytics usageAnalytics)
         {
-            throw new NotImplementedException();
+            usageAnalytics.IsDeleted = true;
+            _context.Update(usageAnalytics);
         }
 
-        public Task<UsageAnalytics> Update(UsageAnalytics usageAnalytics)
+        public UsageAnalytics Update(UsageAnalytics usageAnalytics)
         {
-            throw new NotImplementedException();
+            _context.Update(usageAnalytics);
+            return usageAnalytics;
         }
     }
 }
