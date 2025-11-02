@@ -18,6 +18,22 @@ namespace Booking_System.Infrastructure.Repositories
             return auditLog;
         }
 
+        public async Task<ICollection<AuditLog>> GetAllAsync(Expression<Func<AuditLog, bool>> expression)
+        {
+            var auditlogs = await _context.Set<AuditLog>()
+                .Where(a => !a.IsDeleted)
+                .Where(expression)
+                .ToListAsync();
+            return auditlogs;
+        }
+
+        public async Task<ICollection<AuditLog>> GetAllAsync()
+        {
+            var auditLogs = await _context.AuditLogs.Where(a => !a.IsDeleted)
+                .ToListAsync();
+            return auditLogs;
+        }
+
         public async Task<AuditLog> GetAsync(Expression<Func<AuditLog, bool>> expression)
         {
             var auditLog = await _context.Set<AuditLog>()

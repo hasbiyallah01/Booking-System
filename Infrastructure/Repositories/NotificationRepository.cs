@@ -18,6 +18,23 @@ namespace Booking_System.Infrastructure.Repositories
             return notification;
         }
 
+        public async Task<ICollection<Notification>> GetAllAsync(Expression<Func<Notification, bool>> predicate)
+        {
+            var notifications = await _context.Set<Notification>().Where(a => !a.IsDeleted)
+                                    .Where(predicate)
+                                    .ToListAsync();
+            return notifications;
+        }
+
+        public async Task<ICollection<Notification>> GetAllAsync()
+        {
+            var notifications = await _context.Notifications.Where(a => !a.IsDeleted)
+                .Include(a => a.User)
+                .ToListAsync();
+
+            return notifications;
+        }
+
         public async Task<Notification> GetAsync(Expression<Func<Notification, bool>> predicate)
         {
             var notification = await _context.Set<Notification>().Where(a => !a.IsDeleted)

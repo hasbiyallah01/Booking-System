@@ -19,6 +19,20 @@ namespace Booking_System.Infrastructure.Repositories
             return booking;
         }
 
+        public async Task<ICollection<Booking>> GetAllAsync(Expression<Func<Booking, bool>> predicate)
+        {
+            var bookings = await _context.Set<Booking>().Where(a => !a.IsDeleted)
+                .Where(predicate).ToListAsync();
+            return bookings;
+        }
+
+        public async Task<ICollection<Booking>> GetAllAsync()
+        {
+            var bookings = await _context.Set<Booking>().Where(a => !a.IsDeleted)
+                .ToListAsync();
+            return bookings;
+        }
+
         public async Task<Booking> GetAsync(Expression<Func<Booking, bool>> predicate)
         {
             var booking = await _context.Set<Booking>().Where(a => !a.IsDeleted)

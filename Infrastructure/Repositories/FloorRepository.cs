@@ -1,6 +1,7 @@
 ﻿using Booking_System.Core.Application.Interfaces.Repositories;
 using Booking_System.Core.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Booking_System.Infrastructure.Repositories
@@ -22,6 +23,31 @@ namespace Booking_System.Infrastructure.Repositories
         {
             floor.IsDeleted = true;
             _context.Set<Floor>().Update(floor);
+        }
+
+        public async Task<ICollection<Floor>> GetAllAsync(Expression<Func<Floor, bool>> predicate)
+        {
+            var floors = await _context.Set<Floor>().Where(a => !a.IsDeleted)
+                            .Where(predicate)
+                            .Include(a => a.Zones)
+                            .ToListAsync();
+            return floors;
+        }
+
+        public async Task<ICollection<Floor>> GetAllAsync()
+        {
+            var floors = await _context.Floors.Where(a => !a.IsDeleted)
+                            .Include(a => a.Zones)
+                            .ToListAsync();
+            return floors;
+        }
+
+        public Task<Floor> GetAsync(Expression<Func<Floor, bool>> predicate)
+        {
+            var floor = _context.Set<Floor>().Where(a => !a.IsDeleted)
+                        .Include(a => a.Zones)
+                        .SingleOrDefaultAsync(predicate);
+            return floor;
         }
 
         public async Task<Floor> GetFloorById(int id)

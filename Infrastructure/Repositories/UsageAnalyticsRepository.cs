@@ -19,6 +19,23 @@ namespace Booking_System.Infrastructure.Repositories
             return usageAnalytics;
         }
 
+        public async Task<ICollection<UsageAnalytics>> GetAllAsync(Expression<Func<UsageAnalytics, bool>> predicate)
+        {
+            var analytics = await _context.Set<UsageAnalytics>()
+                    .Where(predicate)
+                    .Where(a => !a.IsDeleted)
+                    .ToListAsync();
+            return analytics;
+        }
+
+        public async Task<ICollection<UsageAnalytics>> GetAllAsync()
+        {
+            var analytics = await _context.Set<UsageAnalytics>()
+                .Where(a => !a.IsDeleted)
+                    .ToListAsync();
+            return analytics;
+        }
+
         public async Task<UsageAnalytics> GetAsync(Expression<Func<UsageAnalytics, bool>> predicate)
         {
             var analytics = await _context.Set<UsageAnalytics>().Where(a => !a.IsDeleted)

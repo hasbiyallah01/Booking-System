@@ -20,6 +20,22 @@ namespace Booking_System.Infrastructure.Repositories
             return user;
         }
 
+        public async Task<ICollection<User>> GetAllAsync(Expression<Func<User, bool>> predicate)
+        {
+            var users = await _context.Set<User>()
+                        .Where(predicate)
+                        .Where(a => !a.IsDeleted)
+                        .ToListAsync();
+            return users;
+        }
+
+        public async Task<ICollection<User>> GetAllAsync()
+        {
+            var users = await _context.Users.Where(a => !a.IsDeleted)
+                        .ToListAsync();
+            return users;
+        }
+
         public async Task<User> GetUser(Expression<Func<User, bool>> predicate)
         {
             var user = await _context.Set<User>().Where(a => !a.IsDeleted)

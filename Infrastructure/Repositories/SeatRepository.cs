@@ -1,6 +1,7 @@
 ﻿using Booking_System.Core.Application.Interfaces.Repositories;
 using Booking_System.Core.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Booking_System.Infrastructure.Repositories
 {
@@ -21,6 +22,35 @@ namespace Booking_System.Infrastructure.Repositories
         {
             seat.IsDeleted = true;
             _content.Set<Seat>().Update(seat);
+        }
+
+        public async Task<ICollection<Seat>> GetAllAsync(Expression<Func<Seat, bool>> predicate)
+        {
+            var seats = await _content.Seats
+                            .Where(predicate)
+                            .Where(a => !a.IsDeleted)
+                            .Include(a => a.Zone)
+                            .ToListAsync();
+            return seats;
+        }
+
+        public async Task<ICollection<Seat>> GetAllAsync()
+        {
+            var seats = await _content.Seats
+                .Where(a => !a.IsDeleted)
+                .Include(a => a.Zone)
+                .ToListAsync();
+            return seats;
+        }
+
+        public Task<Seat> GetAsync(Expression<Func<Seat, bool>> predicate)
+        {
+            var seat = _content.Set<Seat>()
+                        .Where(predicate)
+                        .Where(a => !a.IsDeleted)
+                        .Include(a => a.Zone)
+                        .SingleOrDefaultAsync();
+            return seat;
         }
 
         public async Task<Seat> GetAsyncById(int id)

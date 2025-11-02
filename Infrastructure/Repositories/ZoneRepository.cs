@@ -24,6 +24,22 @@ namespace Booking_System.Infrastructure.Repositories
             _context.Set<Zone>().Update(zone);
         }
 
+        public async Task<ICollection<Zone>> GetAllAsync(Expression<Func<Zone, bool>> predicate)
+        {
+            var user = await _context.Set<Zone>()
+                            .Where(a => !a.IsDeleted)
+                            .Where(predicate)
+                            .ToListAsync();
+            return user;
+        }
+
+        public async Task<ICollection<Zone>> GetAllAsync()
+        {
+            var user = await _context.Zones.Where(a => !a.IsDeleted)
+                            .ToListAsync();
+            return user;
+        }
+
         public async Task<Zone> GetAsync(Expression<Func<Zone, bool>> predicate)
         {
             var zone = await _context.Set<Zone>().Where(a => !a.IsDeleted)
