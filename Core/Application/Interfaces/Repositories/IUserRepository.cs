@@ -8,6 +8,9 @@ namespace Booking_System.Core.Application.Interfaces.Repositories
         Task<User> AddAsync(User user);
         Task<User> GetUserByEmail(string email);
         Task<User> GetUserbyStudentId(string studentId);
+        Task<bool> ExistsAsync(string email, int id);
+        Task<bool> ExistsAsync(string email);
+        Task<bool> ExistsAsync(int id);
         Task<User> GetUserById(int Id);
         Task<User> GetUser(Expression<Func<User, bool>> predicate);
         Task<ICollection<User>> GetAllAsync(Expression<Func<User, bool>> predicate);

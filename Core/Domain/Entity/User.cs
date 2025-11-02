@@ -8,6 +8,7 @@ namespace Booking_System.Core.Entity.Models
         public string? StudentId { get; set; }
         public string Email { get; set; }
         public string FullName { get; set; }
+        public string Password { get; set; }
         public Role Role { get; set; } = Role.Student;
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();  
         public ICollection<Notification> Notifications { get; set; } = new List<Notification>();    

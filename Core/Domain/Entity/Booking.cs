@@ -20,6 +20,6 @@ namespace Booking_System.Core.Domain.Entity
         public Seat Seat { get; set; }
 
         public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
-        public ICollection<AuditLog> AuditLogs = new List<AuditLog>();
+        public ICollection<AuditLog> AuditLogs { get; set; } = new List<AuditLog>();
     }
 }

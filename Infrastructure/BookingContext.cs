@@ -18,6 +18,7 @@ namespace Booking_System.Infrastructure
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<UsageAnalytics> UsageAnalytics { get; set; }
+        public DbSet<VerificationCode> VerificationCodes { get; set; }
         public DbSet<Zone> Zones { get; set; }
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {

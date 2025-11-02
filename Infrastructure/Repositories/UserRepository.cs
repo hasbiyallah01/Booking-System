@@ -36,6 +36,15 @@ namespace Booking_System.Infrastructure.Repositories
             return users;
         }
 
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await _context.Users.AnyAsync(a => a.Id == id);
+        }
+
+        public async Task<bool> ExistsAsync(string email)
+        {
+            return await _context.Users.AnyAsync(a => a.Email == email);
+        }
         public async Task<User> GetUser(Expression<Func<User, bool>> predicate)
         {
             var user = await _context.Set<User>().Where(a => !a.IsDeleted)
@@ -80,6 +89,11 @@ namespace Booking_System.Infrastructure.Repositories
         {
             _context.Set<User>().Update(user);
             return user;
+        }
+
+        public async Task<bool> ExistsAsync(string email, int id)
+        {
+            return await _context.Users.AnyAsync(a => a.Email == email && a.Id == id);
         }
     }
 }
