@@ -9,6 +9,8 @@ namespace Booking_System.Core.Application.Interfaces.Repositories
         Task<Booking> GetAsyncByUserId(int userId);
         Task<Booking> GetAsyncById(int id); 
         Task<Booking> GetAsync(Expression<Func<Booking, bool>> predicate);
+        Task<ICollection<Booking>> GetAllAsync(Expression<Func<Booking, bool>> predicate);
+        Task<ICollection<Booking>> GetAllAsync();
         Booking UpdateBooking(Booking booking);
         void RemoveBooking(Booking booking);
     }

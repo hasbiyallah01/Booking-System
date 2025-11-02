@@ -5,6 +5,7 @@
         Student,
         Admin,
         Secretary,
-        Volunteer
+        Volunteer,
+        SuperAdmin
     }
 }

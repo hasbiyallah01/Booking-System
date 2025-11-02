@@ -10,6 +10,8 @@ namespace Booking_System.Core.Application.Interfaces.Repositories
         Task<AuditLog> GetAsyncById(int id);
         Task<AuditLog> GetAsyncByUserId(int userId);
         Task<AuditLog> GetAsyncByBookingId(int bookingId); 
+        Task<ICollection<AuditLog>> GetAllAsync(Expression<Func<AuditLog, bool>> expression);
+        Task<ICollection<AuditLog>>GetAllAsync();
         AuditLog UpdateAuditLog(AuditLog auditLog);
         void RemoveLog(AuditLog auditLog);
     }

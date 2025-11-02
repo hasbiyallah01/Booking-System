@@ -10,6 +10,8 @@ namespace Booking_System.Core.Application.Interfaces.Repositories
         Task<User> GetUserbyStudentId(string studentId);
         Task<User> GetUserById(int Id);
         Task<User> GetUser(Expression<Func<User, bool>> predicate);
+        Task<ICollection<User>> GetAllAsync(Expression<Func<User, bool>> predicate);
+        Task<ICollection<User>> GetAllAsync();
         User UpdateAsync(User user);
         void RemoveUser(User user);
     }

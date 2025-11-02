@@ -10,7 +10,7 @@ namespace Booking_System.Core.Domain.Entity
         public string Label { get; set; } = string.Empty;
         public SeatStatus Status { get; set; } = SeatStatus.Available;
         public string Amenities { get; set; } = "{}";
-        public bool isActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
         public Zone Zone { get; set; }  
         public ICollection<Booking> Booking { get; set; } = new List<Booking>();
     }

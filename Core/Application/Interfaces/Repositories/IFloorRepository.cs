@@ -8,6 +8,8 @@ namespace Booking_System.Core.Application.Interfaces.Repositories
         Task<Floor> AddAsync(Floor floor);
         Task<Floor> GetFloorById(int id);
         Task<Floor> GetAsync(Expression<Func<Floor, bool>> predicate);
+        Task<ICollection<Floor>> GetAllAsync(Expression<Func<Floor, bool>> predicate);
+        Task<ICollection<Floor>> GetAllAsync(); 
         Floor UpdateAsync(Floor floor);
         void DeleteAsync(Floor floor);
     }

@@ -10,6 +10,8 @@ namespace Booking_System.Core.Application.Interfaces.Repositories
         Task<Notification> GetAsyncById(int id);
         Task<Notification> GetAsyncByUserId(int userId);
         Task<Notification> GetAsyncByBookingId(int bookingId);
+        Task<ICollection<Notification>> GetAllAsync(Expression<Func<Notification, bool>> predicate);
+        Task<ICollection<Notification>> GetAllAsync();
         Notification Update(Notification notification);
         void RemoveNotification(Notification notification);
     }

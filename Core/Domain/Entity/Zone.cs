@@ -4,6 +4,7 @@ namespace Booking_System.Core.Domain.Entity
 {
     public class Zone : Auditables
     {
+        public int FloorId { get; set; }    
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
         public int Capacity { get; set; }
