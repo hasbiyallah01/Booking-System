@@ -1,5 +1,5 @@
-﻿using System.Linq.Expressions;
-using System.Security.Policy;
+﻿using Booking_System.Core.Domain.Entity;
+using System.Linq.Expressions;
 
 namespace Booking_System.Core.Application.Interfaces.Repositories
 {
@@ -8,7 +8,7 @@ namespace Booking_System.Core.Application.Interfaces.Repositories
         Task<Zone> AddAsync(Zone zone);
         Task<Zone> GetAsyncById(int id);
         Task<Zone> GetAsync(Expression<Func<Zone, bool>> predicate);
-        Task<Zone> UpdateAsync(Zone zone);
-        Task<Zone> DeleteAsync(Zone zone);
+        Zone UpdateAsync(Zone zone);
+        void DeleteAsync(Zone zone);
     }
 }
